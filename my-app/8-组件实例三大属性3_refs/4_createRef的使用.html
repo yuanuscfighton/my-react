@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/24 1:45 PM -->
+  <title>4_createRef的使用</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Demo extends React.Component {
+
+      // React.createRef调用后可以返回一个容器，该容器可以存储被ref所标识的节点.
+      // 该容器是"专人专用的"
+      myRef = React.createRef();
+
+      showData = () => {
+        console.log(this.myRef);
+      }
+
+      render() {
+        return (
+          <div>
+            {/*
+              （1）a就是当前ref的所处的节点
+              （2）this.xxx=a，表示把a放到组件实例自身上，然后起了一个名字叫xxx
+              （3）this指向: 这里是箭头函数，没有自己的this，于是向外找，找到render()，而render里的this是组件的实例对象
+             */}
+            <input ref = {this.myRef} type = "text" placeholder = "点击按钮提示数据"/>&nbsp;
+            <button onClick = {this.showData}>点我提示左侧的数据</button>
+          </div>
+        )
+      }
+    }
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Demo a = "1" b = "张三"/>, document.getElementById("test"));
+    // 执行了ReactDOM.render(<MyComponent />, ...); 之后，发生了什么？
+    // (1)React解析组件标签，找到了MyComponent组件
+    // (2)发现组件是使用类定义的，随后new出来该类的实例，并通过该类的实例调用到原型上的render()方法
+    // (3)将render()返回的虚拟DOM转为其真实DOM，随后呈现在页面上
+
+  </script>
+</body>
+
+</html>

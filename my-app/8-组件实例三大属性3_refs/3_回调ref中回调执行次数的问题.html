@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/24 1:45 PM -->
+  <title>3_回调ref中回调执行次数的问题</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Demo extends React.Component {
+
+      state = {
+        isHot: false
+      };
+
+      showInfo = () => {
+        // console.log("this=", this);
+        const {input1} = this;
+        alert(input1.value);
+      }
+
+      changeWeather = () => {
+        const {isHot} = this.state;
+        this.setState({isHot: !isHot});
+      }
+
+      inputRef = (currentNode) => {
+        this.input1 = currentNode;
+        console.log("@", currentNode);
+      }
+
+      render() {
+        const {isHot} = this.state;
+
+        return (
+          <div>
+            <h2>今天天气很{isHot ? "炎热" : "凉爽"}</h2>
+            {/*
+              为了能保证组件能出现在页面上，都会调用一次render()。
+              当更改状态后，(因为状态驱动页面的显示)，就会重新调用一次render()，为了能清空，就会先传currentNode为null进来，紧接着调用第2次的时候，
+              才会把当前ref所在的节点传递进来。
+
+              如果ref回调函数是以内联函数的方式定义的，在更新过程中它会被执行两次，第一次传入参数nul，然后第二次会传入参数DOM元素。
+              这是因为在每次渲染的时候，会创建一个新的函数实例，所以React清空旧的ref并设置新的。
+            */}
+            {/*
+              <input ref = {(currentNode) => {
+                this.input1 = currentNode;
+                console.log("ref=", currentNode);
+              }} type = "text" placeholder = "点击按钮提示数据"/>&nbsp;
+            */}
+            {/* 放在实例的自身上 */}
+            <input ref = {this.inputRef} type = "text" placeholder = "点击按钮提示数据"/>&nbsp;
+            <button onClick = {this.showInfo}>点我提示左侧的数据</button>
+            <button onClick = {this.changeWeather}>更新天气</button>
+          </div>
+        )
+      }
+    }
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Demo a = "1" b = "张三"/>, document.getElementById("test"));
+    // 执行了ReactDOM.render(<MyComponent />, ...); 之后，发生了什么？
+    // (1)React解析组件标签，找到了MyComponent组件
+    // (2)发现组件是使用类定义的，随后new出来该类的实例，并通过该类的实例调用到原型上的render()方法
+    // (3)将render()返回的虚拟DOM转为其真实DOM，随后呈现在页面上
+
+  </script>
+</body>
+
+</html>

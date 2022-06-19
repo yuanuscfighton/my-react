@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/18 8:23 PM -->
+  <title>4_state_类中方法中的this</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Weather extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          isHot: true,
+        };
+      }
+
+      changeWeather() {
+        // changeWeather放在了Weather的原型对象上，供实例使用
+        // 通过Weather实例调用changeWeather的时候，changeWeather中的this就是Weather实例
+        console.log("this=", this);
+      }
+
+      // ReferenceError: changeWeather is not defined
+      render() {
+        return (
+          <h2 onClick = {changeWeather}>今天天气很{this.state.isHot ? "炎热" : "凉爽"}</h2>
+        )
+      }
+    }
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Weather/>, document.getElementById('test'));
+
+  </script>
+</body>
+
+</html>

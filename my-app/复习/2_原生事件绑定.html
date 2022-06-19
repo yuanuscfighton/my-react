@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/18 8:03 PM -->
+  <title>2_原生事件绑定</title>
+</head>
+<body>
+
+  <button id = "btn1">按钮1</button>
+  <button id = "btn2">按钮2</button>
+  <!-- 当点击按钮的时候，就把""两个引号之间的js语句拿出来执行，因此需要一个demo函数 -->
+  <button id = "btn3" onclick = "demo()">按钮3</button>
+
+  <script type = "text/javascript">
+
+    ////////// 方式1
+    // 找到btn1
+    const btn1 = document.getElementById('btn1');
+    btn1.addEventListener('click', () => {
+      alert('按钮1被点击了');
+    });
+
+    ////////// 方式2
+    const btn2 = document.getElementById('btn2');
+    btn2.onclick = () => {
+      alert('按钮2被点击了');
+    };
+
+    ////////// 方式3
+    function demo() {
+      alert('按钮3被点击了');
+    }
+
+
+  </script>
+</body>
+
+</html>

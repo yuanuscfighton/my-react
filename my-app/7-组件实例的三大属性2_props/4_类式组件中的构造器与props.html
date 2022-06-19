@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/5/21 3:44 PM -->
+  <title>4_类式组件中的构造器与props</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入React核心库(核心库必须最先引入) -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入React-dom，用于支持React操作dom -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转成js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+</body>
+<script type = "text/babel">
+  // 第1步:创建组件
+  class Student extends React.Component {
+
+    constructor(props) {
+      // 构造器是否接受props，是否传递给super，取决于是否希望在构造器中通过this访问props
+      super(props);
+
+      console.log("输出Student实例身上的props=", this.props); // 如果props不传给super，拿到的就是undefined
+    }
+
+    render() {
+      // 解构赋值方式
+      const {name, age, grade} = this.props;
+      return (
+        <ul>
+          <li>姓名: {name}</li>
+          <li>年龄: {age}</li>
+          <li>年级: {grade}</li>
+        </ul>
+      )
+    }
+  }
+
+  // 第2步:渲染组件到页面
+  ReactDOM.render(<Student name = "张三" age = {20} grade = "高一"/>, document.getElementById('test'));
+
+</script>
+</html>

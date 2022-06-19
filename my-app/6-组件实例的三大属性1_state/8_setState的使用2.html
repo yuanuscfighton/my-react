@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/5/18 8:43 AM -->
+  <title>8_setState的使用2</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Weather extends React.Component {
+      constructor(props) {
+
+        super(props);
+        this.state = {
+          isHot: true,
+          wind: '微风',
+        };
+        this.foo = this.changeWeather.bind(this);
+      }
+
+      changeWeather() {
+        // 获取原来的isHot值
+        const isHot = this.state.isHot;
+
+        // 验证是合并操作还是替换操作。即，验证wind:微风会不会丢失
+        // （1）替换操作指：是直接拿着{isHot:!isHot}对象将原来的{isHot:true,wind:'微风}对象替换掉，
+        // （2）合并操作指：只是覆盖isHot这个属性
+        // ==> 验证后，微风能正常显示，因此更新是合并操作。
+        this.setState({isHot: !isHot});
+      }
+
+      render() {
+        // 读取状态
+        const {isHot, wind} = this.state;
+        return (
+          <h2 onClick = {this.foo}>今天天气很{isHot ? "炎热" : "凉爽"}，{wind}</h2>
+        )
+      }
+    }
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Weather/>, document.getElementById('test'));
+
+  </script>
+</body>
+
+</html>

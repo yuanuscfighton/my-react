@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/5/23 5:49 PM -->
+  <title>5_对象相关的知识</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    let a = 'name';
+    let obj = {} // {name:'tom'}
+
+    obj[a] = 'tom';
+    console.log(obj);
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/24 1:45 PM -->
+  <title>1_字符串形式的ref</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Demo extends React.Component {
+
+      showLeftInputData = () => {
+        console.log(this); // this就是Demo组件的实例对象
+
+        // refs: {input1: input}，此处的key是我们定义的input1，value就是ref当前所在的节点
+        // 组件内的标签可以定义ref属性来标识自己
+
+        // console.log(this.refs.input1); // <input type="text" placeholder="点击按钮提示数据">
+        const {input1} = this.refs;
+        alert(input1.value)
+      }
+
+      showRightInputData = () => {
+        const {input2} = this.refs;
+        alert(input2.value);
+      }
+
+      render() {
+        return (
+          <div>
+            {/* ref: key值是input1，value就是该ref所处的这个节点 */}
+            <input ref = "input1" type = "text" placeholder = "点击按钮提示数据"/>&nbsp;
+            <button onClick = {this.showLeftInputData}>点我提示左侧的数据</button>
+            &nbsp;
+            <input ref = "input2" onBlur = {this.showRightInputData} type = "text" placeholder = "失去焦点的时候提示数据"/>
+          </div>
+        )
+      }
+    }
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Demo a = "1" b = "张三"/>, document.getElementById("test"));
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/18 9:06 PM -->
+  <title>6_解决类中this指向问题</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Weather extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          isHot: true,
+        };
+        // 分析等号右侧:顺着原型链找到原型中的changeWeather方法，调用bind()生成一个新的函数，并将this传给这个新的函数。
+        // 这个新的函数的名字叫作foo，foo挂在了实例对象身上。
+        this.foo = this.changeWeather.bind(this);
+        // 解决changeWeather中this指向问题
+        // 等号右边的this是组间的实例对象。
+        // changeWeather放在Weather的原型对象上，即使实例自身上没有changeWeather，也会顺着原型找到原型是上的changeWeather
+        // 执行完下面👇🏻代码后，Weather实例上就多了一个changeWeather方法
+      }
+
+      changeWeather() {
+        // changeWeather放在了Weather的原型对象上，供实例使用
+        // 通过Weather实例调用changeWeather的时候，changeWeather中的this就是Weather实例
+        // 由于changeWeather是作为onClick的回调，所以不是通过Weather实例调用的，是直接调用，
+        // 并且由于类中的方法默认开启了局部严格模式，所以changeWeather中的this是undefined。
+        // 【具体分析，见"复习/3_类中的方法this指向.html"】
+        console.log("this=", this);
+      }
+
+      render() {
+        return (
+          <h2 onClick = {this.foo}>今天天气很{this.state.isHot ? "炎热" : "凉爽"}</h2>
+        )
+      }
+    }
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Weather/>, document.getElementById('test'));
+
+  </script>
+</body>
+
+</html>

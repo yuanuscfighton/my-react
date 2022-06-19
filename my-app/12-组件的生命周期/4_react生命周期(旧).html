@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/19 10:44 AM -->
+  <title>4_react生命周期(旧)</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+
+    // note:
+    // 1.初始化阶段: 由ReactDOM.render()触发--初次渲染
+    // ---- constructor()
+    // ---- componentWillMount()
+    // ---- render()
+    // ---- componentDidMount() ==> 常用，一般在这个钩子中做一些初始化的事，e.g.开启定时器、发送网络请求、订阅消息
+    //
+    // 2.更新阶段: 由组件内部的this.setState()或者父组件render触发
+    // ---- shouldComponentUpdate()
+    // ---- componentWillUpdate()
+    // ---- render() ==>必须使用的一个
+    // ---- componentDidUpdate()
+    //
+    // 3.组件卸载: 由ReactDOM.unmountComponentAtNode()触发
+    // ---- componentWillUnmount() ==> 常用，一般在这个钩子中做一些收尾的事情，e.g.关闭定时器、取消订阅消息
+
+    // 第1步:创建组件
+    class Count extends React.Component {
+
+      // 构造器
+      constructor() {
+        console.log('Count-constructor');
+        super();
+        this.state = {
+          count: 0,
+        }
+      }
+
+      addOne = () => {
+        const {count} = this.state;
+        this.setState({count: count + 1});
+      }
+
+      // 卸载组件按钮的回调
+      death = () => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('test'));
+      }
+
+      // 强制更新按钮的回调
+      update = () => {
+        this.forceUpdate();
+      }
+
+      // 组件将要挂载的钩子
+      componentWillMount() {
+        console.log('Count-componentWillMount');
+      }
+
+      // 组件挂载完毕的钩子
+      componentDidMount() {
+        console.log('Count-componentDidMount');
+      }
+
+      // 组件将要卸载的钩子
+      componentWillUnmount() {
+        console.log('Count-componentWillUnmount');
+      }
+
+      // 控制组件更新的"阀门" <== setState()
+      shouldComponentUpdate() {
+        console.log('Count-shouldComponentUpdate');
+        return true;
+      }
+
+      // 组件将要更新的钩子
+      componentWillUpdate() {
+        console.log('Count-componentWillUpdate');
+      }
+
+      // 组件更新完毕的钩子
+      componentDidUpdate() {
+        console.log('Count-componentDidUpdate');
+      }
+
+      render() {
+        console.log('Count-render');
+        return (
+          <div>
+            <div>当前求和为{this.state.count}</div>
+            <button onClick = {this.addOne}>点我加1</button>
+            <button onClick = {this.death}>卸载组件</button>
+            <button onClick = {this.update}>不更改任何状态中的数据，强制更新一下</button>
+          </div>
+        );
+      }
+    }
+
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Count/>, document.getElementById('test'));
+    // 执行了ReactDOM.render(<MyComponent />, ...); 之后，发生了什么？
+    // (1)React解析组件标签，找到了MyComponent组件
+    // (2)发现组件是使用类定义的，随后new出来该类的实例，并通过该类的实例调用到原型上的render()方法
+    // (3)将render()返回的虚拟DOM转为其真实DOM，随后呈现在页面上
+
+  </script>
+</body>
+
+</html>

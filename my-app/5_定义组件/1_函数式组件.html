@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/2/17 7:44 AM -->
+  <title>1_函数式组件</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入React核心库(核心库必须最先引入) -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入React-dom，用于支持React操作dom -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转成js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel，为了表示这里写的是jsx，而不是js，并且需要依赖babel进行翻译 -->
+  <script type = "text/babel">
+
+    // 第1步:创建虚拟组件
+    // MyComponent 首字母需要大写
+    // 组件中包含: 结构(html)，样式(css)，交互(js) 等其它资源。
+    // 一个组件最起码需要有结构(html)，所以得让函数有返回值
+    function MyComponent() {
+      console.log(this); // 打印:undefined，因为babel编译后开启了严格模式
+      // 严格模式:禁止自定义函数中的this指向window
+      return <h2>我是用函数定义的组件(适用于简单组件的定义)</h2>
+    }
+
+    // 第2步:渲染组件到页面
+    // 由React帮你调用MyComponent函数
+    ReactDOM.render(<MyComponent/>, document.getElementById('test'));
+
+    // 错误1❌
+    // Functions are not valid as a React child.
+    // This may happen if you return a Component instead of <Component /> from render.
+    // Or maybe you meant to call this function rather than return it.
+    // ReactDOM.render(MyComponent, document.getElementById('test'));
+
+    // 错误2❌
+    // The tag <myComponent> is unrecognized in this browser.
+    // If you meant to render a React component, start its name with an uppercase letter in myComponent
+    // 若小写字母开头，则将该标签转为html中同名元素。若html中无该标签对应的同名元素，则报错
+    ReactDOM.render(<myComponent/>, document.getElementById('test'));
+
+    /**
+     * 执行了 ReactDOM.render(<MyComponent/>...); 之后，发生了什么
+     * （1）React解析组件标签，找到MyComponent组件
+     * （2）发现组件是使用函数定义的，随后调用该函数，将返回的虚拟DOM转为真实DOM，随后呈现在页面中。
+     */
+  </script>
+
+
+</body>
+<script type = "text/javascript">
+
+
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/18 8:29 PM -->
+  <title>2_类中的方法this指向</title>
+</head>
+<body>
+  <script type = "text/javascript">
+    class Student {
+      constructor(name, grade) {
+        this.name = name;
+        this.grade = grade;
+      }
+
+      study() {
+        // study()方法放在类的原型对象上，供实例使用
+        // 通过Student的实例调用study()方法的时候，study()中的this就是Student的实例对象
+        console.log('this==>', this);
+      }
+    }
+
+    const s1 = new Student("张三", "高一");
+    s1.study(); // 通过实例调用的方式调用的study()方法 输出的this是Student的实例对象
+
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    // 这是一个赋值语句.
+    // s1是一个实例，这里将s1身上的study属性赋值给x。(方法也是一个属性)
+    const x = s1.study;
+
+    // 这是函数的直接调用
+    x(); // study()方法 输出 undefined
+
+
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    // 类中所有定义的方法，在局部都开启了严格模式(这是类帮忙开启的，和babel没有关系)，所以this不指向window和类的实例
+    // 即
+    function demo() {
+      console.log(this);
+    }
+
+    demo() // demo的直接调用 // 输出window
+
+    function demo1() {
+      'use strict' // 局部的严格模式
+      console.log(this);
+    }
+
+    demo1(); // undefined
+
+  </script>
+</body>
+
+</html>

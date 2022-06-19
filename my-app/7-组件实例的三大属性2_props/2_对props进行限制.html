@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/19 12:10 AM -->
+  <title>2_对props进行限制</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+  <div id = "test1"></div>
+  <div id = "test2"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+  <!-- 引入prop-types，用于对组件标签属性进行限制 -->
+  <script type = "text/javascript" src = "../js/prop-types.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Student extends React.Component {
+      render() {
+        const {name, age, grade} = this.props;
+
+        // props是只读的
+        // ❌ this.props.name = "赵六";
+
+        return (
+          <ul>
+            <li>姓名: {name}</li>
+            <li>年龄: {age + 1}</li>
+            <li>年级: {grade}</li>
+          </ul>
+        )
+      }
+    }
+
+    // 对标签属性进行类型、必要性的限制
+    Student.prototype = {
+      // 限制name属性必须是string类型，且必须填写
+      name: React.PropTypes.string.isRequired,
+      // age必须是number类型，且不是必须传的
+      age: React.PropTypes.number,
+      grade: React.PropTypes.string,
+    }
+
+    // 设置默认属性值
+    Student.defaultProps = {
+      grade: "高中",
+      age: 15,
+    }
+
+    // 第2步:渲染组件到页面
+    // age="20" --> 20是字符串，20+1后，就变成201，因此这里需要写{20}，当{20+1}后，就变成21了。
+    // 所以要对value进行类型限制
+    ReactDOM.render(<Student name = "张三" age = "20" grade = "高一"/>, document.getElementById('test'));
+    ReactDOM.render(<Student name = "李四" age = {10} grade = "小学"/>, document.getElementById('test1'));
+
+
+    const s = {name: "王五", age: 15, grade: "初一"};
+    ReactDOM.render(<Student {...s}/>, document.getElementById('test2'));
+
+  </script>
+</body>
+
+</html>

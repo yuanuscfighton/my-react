@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/18 8:11 PM -->
+  <title>2_state_事件绑定</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Weather extends React.Component {
+      constructor(props) {
+        super(props);
+        // 初始化状态
+        this.state = {
+          isHot: true,
+        }
+      }
+
+      render() {
+        return (
+          // 读取(使用)状态state。这里的this指向组件实例对象
+          <h2 onClick = {changeWeather}>今天天气很{this.state.isHot ? "炎热" : "凉爽"}</h2>
+        )
+      }
+    }
+
+    // ❌ <h2 onClick = {changeWeather()}>今天天气很{this.state.isHot ? "炎热" : "凉爽"}</h2>
+    // 在渲染组件的时候，React帮我们new了一个Weather的实例，通过该实例调用render()，想要拿到返回值，就需要执行 <h2>...</h2> 代码，
+    // 执行到onClick的时候，发现是把changeWeather()方法的返回值赋给onClick。
+    // onClick={changeWeather()} 是一个赋值语句，changeWeather()是一个函数调用的表达式，
+    // 如果写成onClick={changeWeather()}，意思就是 把changeWeather函数调用的返回值赋给了onClick作为回调。而changeWeather函数的返回值是undefined
+
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Weather/>, document.getElementById('test'));
+
+    // 这是自定义的函数，babel在翻译代码的时候，禁止自定义的函数中的this指向Window，因此这里的this是undefined
+    function changeWeather() {
+      console.log('改变天气了');
+      // Cannot read property 'state' of undefined
+      const {isHot} = this.state;
+      // 此处拿不到Weather的实例对象，因为是React帮我们new的Weather实例，实例在React身上了
+    }
+
+  </script>
+</body>
+
+</html>

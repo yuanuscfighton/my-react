@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/5/18 8:53 AM -->
+  <title>9_调用次数</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库 -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel。表示这里写的是jsx，而不是js，并且是依赖babel进行翻译的 -->
+  <script type = "text/babel">
+    // 第1步:创建组件
+    class Weather extends React.Component {
+
+      // 只有一个Weather组件标签的时候，构造器只会调用1次
+      constructor(props) {
+        super(props);
+        this.state = {
+          isHot: true,
+        };
+        this.foo = this.changeWeather.bind(this);
+      }
+
+      // changeWeather调用几次？点几次，就调用几次
+      changeWeather() {
+        // 获取原来的isHot值
+        const isHot = this.state.isHot;
+        this.setState({isHot: !isHot});
+      }
+
+      // render调用几次？1+n次，1是初始化的那次。n是状态更新的次数
+      render() {
+        // 读取状态
+        const {isHot} = this.state;
+        return (
+          <h2 onClick = {this.foo}>今天天气很{isHot ? "炎热" : "凉爽"}</h2>
+        )
+      }
+    }
+
+    // 第2步:渲染组件到页面
+    ReactDOM.render(<Weather/>, document.getElementById('test'));
+
+  </script>
+</body>
+
+</html>

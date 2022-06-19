@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <!-- Create 2022/3/18 12:22 PM -->
+  <title>hello_react</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id = "test"></div>
+
+  <!-- 引入react核心库(核心库必须最先引入) -->
+  <script type = "text/javascript" src = "../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script type = "text/javascript" src = "../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script type = "text/javascript" src = "../js/babel.min.js"></script>
+
+  <!-- 此处一定要写babel，为了表示这里写的是jsx，而不是js，并且需要依赖babel进行翻译 -->
+  <script type = "text/babel">
+    // 第1步:创建虚拟DOM
+    const VDOM = <h1>Hello React</h1> /* 此处一定不要写引号，因为不是字符串，是虚拟DOM */
+    // 第2步:渲染虚拟DOM到页面
+    // ReactDOM.render(想要渲染哪个DOM, 容器)
+    ReactDOM.render(VDOM, document.getElementById('test'));
+
+  </script>
+</body>
+</html>
