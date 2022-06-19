@@ -23,6 +23,8 @@
     // 第1步:创建组件
     class Student extends React.Component {
       render() {
+        console.log(this); // 输出组件的实例对象
+
         // 解构赋值方式
         const {name, age, grade} = this.props;
         return (
@@ -40,11 +42,11 @@
     ReactDOM.render(<Student name = "李四" age = {10} grade = "小学"/>, document.getElementById('test1'));
 
     const s = {name: "王五", age: 15, grade: "初一"};
-    // 1.由于使用了babel和react.development.js，此处就可以使用展开运算符展开对象了，但仅仅适用于标签属性的传递
+    // 1.由于使用了babel和react.development.js，此处就可以使用展开运算符展开对象了，即...p 使用三点展开运算符展开率p对象，但仅仅适用于标签属性的传递
     // 2.此处 ...s两侧的花括号起到分割作用，表示我们要在{}里面写js表达式了
     ReactDOM.render(<Student {...s}/>, document.getElementById('test2'));
 
-    // 不能随意使用展开运算符展开对象
+    // 不能随意使用展开运算符展开对象，仅仅适用于标签属性的传递
     // console.log("错误❌", ...p);
 
   </script>
