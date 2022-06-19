@@ -30,8 +30,9 @@
       changeWeather() {
         // changeWeather放在了Weather的原型对象上，供实例使用
         // 通过Weather实例调用changeWeather的时候，changeWeather中的this就是Weather实例
-        // 由于changeWeather是作为onClick的回调，所以不是通过Weather实例调用的，是直接调用。
-        // 类中的方法默认开启了局部严格模式，所以changeWeather中的this是undefined。
+        // （1）由于changeWeather是作为onClick的回调，所以不是通过Weather实例调用的，是直接调用。
+        // （2）类中的方法默认开启了局部严格模式
+        //    ===> 所以changeWeather中的this是undefined。
         // 【具体分析，见"复习/3_类中的方法this指向.html"】
         console.log("this=", this); // 打印出来this，this是undefined
       }

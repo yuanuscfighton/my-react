@@ -38,11 +38,11 @@
         this.setState({isHot: !isHot});
       }
 
-      // 构造器中的this就是Weather的实例对象
+      // 1.构造器中的this就是Weather的实例对象
       // Q:为什么要写构造器？原来最开始的state是null，我们要求state是一个对象，且对象里面是key-value的形式。我们是想初始化状态(state)的，
       // 但没有合适的地方，于是只能放在构造器中了。
 
-      // render中的this也Weather的实例对象。
+      // 2.render中的this也Weather的实例对象。
       // 因为写了<Weather/>组件标签后，React做了这么一件事情，
       // const w1 = new Weather();
       // w1.render();

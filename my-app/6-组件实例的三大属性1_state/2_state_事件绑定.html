@@ -31,6 +31,7 @@
       render() {
         return (
           // 读取(使用)状态state。这里的this指向组件实例对象
+          // render中的this指向组件实例对象
           <h2 onClick = {changeWeather}>今天天气很{this.state.isHot ? "炎热" : "凉爽"}</h2>
         )
       }

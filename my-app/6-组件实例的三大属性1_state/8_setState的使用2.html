@@ -21,8 +21,8 @@
     // 第1步:创建组件
     class Weather extends React.Component {
       constructor(props) {
-
         super(props);
+        // 初始化状态
         this.state = {
           isHot: true,
           wind: '微风',
@@ -34,10 +34,10 @@
         // 获取原来的isHot值
         const isHot = this.state.isHot;
 
-        // 验证是合并操作还是替换操作。即，验证wind:微风会不会丢失
+        // 验证是"合并"操作还是"替换"操作。即，验证wind:微风会不会丢失
         // （1）替换操作指：是直接拿着{isHot:!isHot}对象将原来的{isHot:true,wind:'微风}对象替换掉，
         // （2）合并操作指：只是覆盖isHot这个属性
-        // ==> 验证后，微风能正常显示，因此更新是合并操作。
+        // ==> 结论: 微风能正常显示，因此更新是合并操作。
         this.setState({isHot: !isHot});
       }
 

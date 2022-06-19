@@ -26,28 +26,13 @@
         this.state = {
           isHot: true,
         };
-        // 分析等号右侧:顺着原型链找到原型中的changeWeather方法，调用bind()生成一个新的函数，并将this传给这个新的函数。
-        // 这个新的函数的名字叫作foo，foo挂在了实例对象身上。
         this.foo = this.changeWeather.bind(this);
       }
 
       changeWeather() {
-        // changeWeather放在了Weather的原型对象上，供实例使用
-        // 通过Weather实例调用changeWeather的时候，changeWeather中的this就是Weather实例
-        // 由于changeWeather是作为onClick的回调，所以不是通过Weather实例调用的，是直接调用。
-        // 类中的方法默认开启了局部严格模式，所以changeWeather中的this是undefined。
-        // 【具体分析，见"复习/3_类中的方法this指向.html"】
-
-        // changeWeather放在哪里？-- Weather的原型对象上，供实例使用
-        // 通过Weather实例调用changeWeather的时候，changeWeather中的this就是Weather的实例。
-        // Cannot read property 'state' of undefined
-        // 由于changeWeather是作为onClick的回调，不是通过Weather实例调用的，是直接调用的；且类中的方法默认开启了局部的严格模式。
-        // 所以changeWeather中的this是undefined
-
         // 获取原来的isHot值
         const isHot = this.state.isHot;
         // 📢注意: 状态(state)不可以直接更改，例如，this.state.isHot = !isHot <-- 错误的❌
-
         this.setState({isHot: !isHot});
       }
 

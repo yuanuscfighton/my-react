@@ -25,12 +25,17 @@
         this.state = {
           isHot: true,
         };
-        // 分析等号右侧:顺着原型链找到原型中的changeWeather方法，调用bind()生成一个新的函数，并将this传给这个新的函数。
-        // 这个新的函数的名字叫作foo，foo挂在了实例对象身上。
-        this.foo = this.changeWeather.bind(this);
+
         // 解决changeWeather中this指向问题
-        // 等号右边的this是组间的实例对象。
-        // changeWeather放在Weather的原型对象上，即使实例自身上没有changeWeather，也会顺着原型找到原型是上的changeWeather
+        // （1）构造器中的this是组件的实例对象
+        // （2）分析等号右侧
+        //    （a）changeWeather放在Weather的原型对象上，即使实例自身上没有changeWeather，也会顺着原型找到原型中的changeWeather方法
+        //    （b）然后调用bind()生成一个新的函数，并将this传给这个新的函数。
+        // （3）分析this.foo =
+        //     这个新的函数的名字叫作foo，foo挂在了实例对象身上。
+        this.foo = this.changeWeather.bind(this);
+
+        //
         // 执行完下面👇🏻代码后，Weather实例上就多了一个changeWeather方法
       }
 
