@@ -19,6 +19,7 @@ export default class Count extends React.Component {
     //   // this.render();
     //   this.setState({});
     // })
+
     // 在index.js中检测redux状态变化
   }
 
@@ -28,14 +29,14 @@ export default class Count extends React.Component {
     const {value} = this.selectNumber;
     // const {count} = this.state;
 
-    // 通知redux加value,
-    // 注意📢: redux中的状态的变化，不会引起页面的更新.（redux只是管理状态，不负责刷新/更新页面）
-    store.dispatch({type: 'increment', data: value * 1});
-
-    //  this.setState作用:（1）能改状态（2）能调render()
+    // this.setState作用:（1）能改状态（2）能调render()
     // this.setState({
     //   count: count + value * 1,
     // });
+
+    // 通知redux加value,
+    // 注意📢: redux中的状态的变化，不会引起页面的更新.（redux只是管理状态，不负责刷新/更新页面）
+    store.dispatch({type: 'increment', data: value * 1});
   }
 
   // 减法操作
@@ -59,6 +60,14 @@ export default class Count extends React.Component {
     }
   }
 
+  // 异步加
+  incrementAsync = () => {
+    const {value} = this.selectNumber;
+    setTimeout(() => {
+      store.dispatch({type: 'increment', data: value * 1});
+    }, 500);
+  }
+
   render() {
     return (
       <div>
@@ -77,6 +86,8 @@ export default class Count extends React.Component {
         <button onClick = {this.decrement}>减1</button>
         &nbsp;
         <button onClick = {this.incrementIfOdd}>当和是奇数再加1</button>
+        &nbsp;
+        <button onClick = {this.incrementAsync}>异步加1 </button>
       </div>
     );
   }

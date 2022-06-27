@@ -36,12 +36,7 @@ export default class Count extends React.Component {
     //   store.dispatch(createIncrementAction(value * 1));
     // }, 500);
 
-    // 报错❌
-    // error_message: Actions must be plain objects. Instead, the actual type was: 'function'.
-    // You may need to add middleware to your store setup to handle dispatching other values,
-    // such as 'redux-thunk' to handle dispatching functions.
-    // 即，action必须是一个Object类型的一般对象。出错的地方是下面👇🏻的代码，
-    // createIncrementAsyncAction返回的不是Object类型的一般对象，是一个函数，而像createIncrementAction返回的是Object类型的一般对象。
+
     store.dispatch(createIncrementAsyncAction(value * 1, 500));
   }
 

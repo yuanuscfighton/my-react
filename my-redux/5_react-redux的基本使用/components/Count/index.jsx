@@ -17,7 +17,7 @@ export default class Count extends React.Component {
   incrementIfOdd = () => {
     const {value} = this.selectNumber;
     if (this.props.count % 2 !== 0) {
-      this .props.add(value * 1);
+      this.props.add(value * 1);
     }
   }
 
@@ -29,7 +29,7 @@ export default class Count extends React.Component {
 
   render() {
     // console.log('UI组件接收到的props是 ', this.props);
-    // 输出 {store: {…}, count: -1, add: ƒ, minus: ƒ, addAsync: ƒ}
+    // 输出 {store: {...}, count: -1, add: ƒ, minus: ƒ, addAsync: ƒ}
     return (
       <div>
         <h1>当前求和为: {this.props.count}</h1>

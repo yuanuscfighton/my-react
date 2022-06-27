@@ -8,6 +8,6 @@ import thunk from 'redux-thunk';
 /**
  * 该文件专门用于暴露一个store对象，整个应用只有一个store对象
  *
- * store相当于餐厅的老板
+ * 在store中需要应用middleware，即当store收到一个函数类型的action后，不要报错
  */
 export default createStore(countReducer, applyMiddleware(thunk));

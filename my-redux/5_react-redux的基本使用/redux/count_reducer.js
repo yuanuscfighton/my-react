@@ -8,11 +8,6 @@ import {DECREMENT, INCREMENT} from "./constants";
 const initState = -1; // 初始化状态
 export default function countReducer(preState = initState, action) {
 
-  // 首次的时候，preState输出 undefined
-  // console.log("====>>> preState=", preState);
-  // action输出一个对象，{type: "@@redux/INITy.a.d.j.1.b"} .a.d.j.1.b是随机数
-  // console.log("====>>> action=", action);
-
   // 从action对象中获取 type、data
   const {type, data} = action;
 
