@@ -19,7 +19,7 @@ export default App;
 
 
 /**
- * containers/Count/index.jsx
+ * 说明 containers/Count/index.jsx 文件
  *
  * 1.该文件的作用: 连接UI组件和redux
  *
@@ -41,4 +41,22 @@ export default App;
  *            </A>
  *   解决思路: 父给子传递东西，都是一组一组的key-value
  *   解决: connect()在第一次调用的时候，需要传递两个参数，但这两个参数必须是function类型的参数
+ */
+
+/****************************************************************************************************/
+/****************************************************************************************************/
+
+/**
+ * #求和案例--react-redux基本使用
+ *
+ * 1.两个概念
+ *  （1）UI组件: 不能使用任何redux相关的api，只负责页面的呈现、交互
+ *  （2）容器组件: 负责和redux通信，将结果交给UI组件
+ *
+ * 2.如何创建一个容器组件 -- 使用react-redux中的connect函数
+ *    connect(mapStateToProps, mapDispatchToProps)(UI组件)
+ *      - mapStateToProps: 映射状态，返回值是一个对象
+ *      - mapDispatchToProps: 映射操作状态的方法，返回值是一个对象
+ *
+ * 3.📢注意: 容器组件中的store是依靠props传进去的，而不是在容器组件中直接引入
  */

@@ -6,6 +6,7 @@ export default class Count extends React.Component {
     count: 0,
   };
 
+  // 加
   increment = () => {
     // 获取选择的数值
     const {value} = this.selectNumber; // 这里的value是string类型
@@ -15,6 +16,7 @@ export default class Count extends React.Component {
     });
   }
 
+  // 减
   decrement = () => {
     // 获取选择的数值
     const {value} = this.selectNumber; // 这里的value是string类型
@@ -24,6 +26,7 @@ export default class Count extends React.Component {
     });
   }
 
+  // 奇数加
   incrementIfOdd = () => {
     const {value} = this.selectNumber;
     const {count} = this.state;
@@ -34,6 +37,7 @@ export default class Count extends React.Component {
     }
   }
 
+  // 异步加
   incrementAsync = () => {
     const {value} = this.selectNumber;
     const {count} = this.state;

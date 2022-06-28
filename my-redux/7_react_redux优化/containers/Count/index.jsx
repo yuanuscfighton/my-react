@@ -1,10 +1,12 @@
 // 引入connect用于连接UI组件和redux
 import {connect} from "react-redux";
 import {createDecrementAction, createIncrementAction, createIncrementAsyncAction} from "../../redux/count_action";
-import React from "@types/react";
+import React from "react";
 
+/**
+ * 优化: 整合容器组件和UI组件到一个文件中
+ */
 class Count extends React.Component {
-
   increment = () => {
     // 获取选择的数值
     const {value} = this.selectNumber;
@@ -54,24 +56,8 @@ class Count extends React.Component {
   }
 }
 
-// 映射状态
-const mapStateToProps = state => ({count: state});
-
-// 映射操作状态的方法
-const mapDispatchToProps = dispatch => (
-  {
-    add: (number) => {
-      dispatch(createIncrementAction(number));
-    },
-    minus: number => dispatch(createDecrementAction(number)),
-    addAsync: (number, time) => dispatch(createIncrementAsyncAction(number, time)),
-  }
-);
-
 export default connect(
   state => ({count: state}),
-  // mapDispatchToProps的简写
-  // react-redux能帮我们自动dispatch
   {
     add: createIncrementAction,
     minus: createDecrementAction,

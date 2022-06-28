@@ -34,7 +34,7 @@ class Count extends React.Component {
     return (
       <div>
         <h2>我是Count组件</h2>
-        <h4>当前求和为: {this.props.count}，Person组件总人数为:{this.props.totalPersonNum}</h4>
+        <h4>当前求和为: {this.props.countXxx}，Person组件总人数为:{this.props.totalPersonNumXxx}</h4>
         <select ref = {c => this.selectNumber = c}>
           <option value = {1}>1</option>
           <option value = {2}>2</option>
@@ -58,8 +58,8 @@ export default connect(
   // count:state表示将0传给自己的UI了。
   // 但现在执行了合并reducer操作，state(总状态)就不是单纯的0了，而是个对象了 {sum:countReducer, persons:personReducer}
   state => ({
-    count: state.sum,
-    totalPersonNum: state.persons.length
+    countXxx: state.he,
+    totalPersonNumXxx: state.peiqi.length
   }),
   {
     add: createIncrementAction,

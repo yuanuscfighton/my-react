@@ -8,13 +8,20 @@ import {personReducer} from "./reducers/person";
 import thunk from 'redux-thunk';
 
 /**
- * combineReducers方法传入的对象就是redux帮我们保存的总状态对象
- * 此处，总状态对象就是求和的数值和人的数组
+ * 1.combineReducers作用: 合并多个reducer，即，汇总所有的reducer变为一个总的reducer
+ *
+ * 2.redux帮我们保存的总状态是一个对象
+ *
+ * 3.combineReducers传入的对象就是redux帮我们保存的总状态对象
  */
 const allReducers = combineReducers({
-  sum: countReducer, // key-value形式，value就是谁以后能初始化/加工 sum
-  persons: personReducer,
+  he: countReducer, // key-value形式，value就是谁以后能初始化/加工 sum
+  peiqi: personReducer,
 });
+// redux保存的总状态对象的初始化的样子是:
+// key1:he，value:-1
+// key2:peiqi，value:[{id: "001", name: "张三", age: 10}]
+
 // ❌ Uncaught Error: Objects are not valid as a React child (found: object with keys {sum, persons}).
 // If you meant to render a collection of children, use an array instead.
 // Object是不能作为一个节点的，即要把一个对象往页面上放
