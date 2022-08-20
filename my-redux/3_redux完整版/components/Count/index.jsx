@@ -9,7 +9,6 @@ export default class Count extends React.Component {
   increment = () => {
     // 获取选择的数值
     const {value} = this.selectNumber;
-
     // 通知redux加value,
     // 注意📢: redux中的状态的变化，不会引起页面的更新.（redux只是管理状态，不负责刷新/更新页面）
     store.dispatch(createIncrementAction(value * 1));
@@ -29,6 +28,13 @@ export default class Count extends React.Component {
     }
   }
 
+  incrementAsync = () => {
+    const {value} = this.selectNumber;
+    setTimeout(() => {
+      store.dispatch(createIncrementAction(value * 1));
+    }, 500);
+  }
+
   render() {
     return (
       <div>
@@ -44,6 +50,8 @@ export default class Count extends React.Component {
         <button onClick = {this.decrement}>减1</button>
         &nbsp;
         <button onClick = {this.incrementIfOdd}>当和是奇数再加1</button>
+        &nbsp;
+        <button onClick = {this.incrementAsync}>异步加</button>
       </div>
     )
       ;

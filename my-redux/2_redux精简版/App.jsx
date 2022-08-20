@@ -23,8 +23,14 @@ export default App;
  *    yarn add redux
  *
  * （2）开发顺序
- *    step1 store.js --> 只有一个
+ *    step1 store.js --> 整个应用只有一个store对象
  *    step2 reducers.js --> 每个组件都需要有自己的reducer。如，组件A想把自己的状态交给redux，就需要为A构建一个reducer
+ *    step3 components/Count/index.jsx
+ *        (i) 引入store，获取状态 -- store.getState()
+ *        (ii) 通知redux加value -- store.dispatch({ type: 'xxx', data: zzz});
+ *        (iii) 状态的改变，引起UI的刷新. 监测redux中状态的变化 -- store.subscribe()
+ *          可以把store.subscribe提取到index.jsx中，整个App都会重新render一次
+ *
  *
  ***********************************************************************************************************
  * 1.src下建立
@@ -43,7 +49,7 @@ export default App;
  *  （3）reducer第一次调用的时候，是store自动触发的，传递的preState是undefined
  *
  * 4.在index.js中监测store中状态的改变，一旦发生改变重新渲染<App/>
- *   注意📢  redux只负责管理状态，至于状态的改变驱动着页面的展示，要靠我们自己写
+ *   注意⚠️: redux只负责管理状态，至于状态的改变驱动着页面的展示，要靠我们自己写
  */
 
 // typescript文档: https://www.w3cschool.cn/typescript/typescript-tutorial.html

@@ -11,16 +11,15 @@
 const initState = -666; // 初始化状态
 export default function countReducer(preState = initState, action) {
 
-  // 首次的时候，preState输出 undefined
+  // 首次的时候，preState是undefined
   // console.log("====>>> preState=", preState);
 
-  // action输出一个对象，{type: "@@redux/INITy.a.d.j.1.b"} .a.d.j.1.b是随机数
-  // console.log("====>>> action=", action);
-
-  // 初始化的时候，preState是undefined
   // if (preState === undefined) {
   //   return 0;
   // }
+
+  // action输出一个对象，{type: "@@redux/INITy.a.d.j.1.b"} .a.d.j.1.b是随机数
+  // console.log("====>>> action=", action);
 
   // 解构赋值，从action对象中获取 type(要做什么)、data(数据)
   const {type, data} = action;
@@ -28,6 +27,7 @@ export default function countReducer(preState = initState, action) {
   switch (type) {
     case 'increment':
       // 之前的值 + 新的数据
+      // 将加的结果返回
       return preState + data;
     case 'decrement':
       return preState - data;

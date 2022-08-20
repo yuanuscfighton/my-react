@@ -25,11 +25,11 @@ export default App;
  *
  * 2.使用步骤:
  * （1）因此需要引入UI组件，即引入Count的UI组件，import CountUI from '... / components/Count';
- * （2）引入redux，即引入redux中最核心的store文件，import store from '...';
+ * （2）容器中的store不能自己引入，需要在上一层通过props传过来，即不能import store from '...';
  * （3）连接左右手，即连接UI组件和store，因此需要引入connect方法，import {connect} from 'react-redux';
  *     说明: connect()() ==> （a）connect是一个函数;（b）connect()调用的返回值仍然是一个函数
  *     step1  const CountContainer = connect()(); // 返回一个求和的容器组件
- *     step2  和UI组件建立联系: connect()(UI组件); i.e. connect()(CountUI);
+ *     step2  和UI组件建立联系: connect()(UI组件); i.e. connect(?,?)(CountUI);
  *     step3  和redux建立联系
  *
  * 3.容器组件需要给UI组件传递: （1）redux中所保存的状态;（2）用于操作状态的方法
@@ -39,7 +39,7 @@ export default App;
  *            <A>
  *                <B a='1'/>
  *            </A>
- *   解决思路: 父给子传递东西，都是一组一组的key-value
+ *   解决思路: 父给子传递东西，都是一组一组的key:value
  *   解决: connect()在第一次调用的时候，需要传递两个参数，但这两个参数必须是function类型的参数
  */
 

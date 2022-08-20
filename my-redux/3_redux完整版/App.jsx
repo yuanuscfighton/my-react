@@ -16,6 +16,7 @@ export default App;
 
 /**
  * #求和案例--redux完整版
+ * [这里将Action Creators补回来]
  *
  * 1.src下建立
  *    -redux

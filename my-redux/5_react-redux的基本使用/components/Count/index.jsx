@@ -1,5 +1,6 @@
 import React from 'react';
 
+// 这是一个UI组件，不能有redux相关的东西
 export default class Count extends React.Component {
 
   increment = () => {
