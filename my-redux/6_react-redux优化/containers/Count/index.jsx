@@ -4,6 +4,7 @@ import CountUI from '../../components/Count'
 import {connect} from "react-redux";
 import {createDecrementAction, createIncrementAction, createIncrementAsyncAction} from "../../redux/count_action";
 
+// 最终版本
 const CountContainer = connect(
   state => ({count: state}),
   // mapDispatchToProps的简写

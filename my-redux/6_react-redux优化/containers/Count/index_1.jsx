@@ -1,31 +1,37 @@
-// 引入Count的UI组件
+// 1.引入Count的UI组件
 import CountUI from '../../components/Count'
-// 引入connect用于连接UI组件和redux
+// 2.引入connect用于连接UI组件和redux
 import {connect} from "react-redux";
 import {createDecrementAction, createIncrementAction, createIncrementAsyncAction} from "../../redux/count_action";
 
-// 优化2: 精简mapDispatchToProps
+// 映射状态
+// function mapStateToProps(state) {
+//   return {count: state};
+// }
+
+
+// 映射操作状态的方法
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     add: (number) => {
+//       dispatch(createIncrementAction(number));
+//     },
+//     minus: number => dispatch(createDecrementAction(number)),
+//     addAsync: (number, time) => dispatch(createIncrementAsyncAction(number, time)),
+//   }
+// }
+
+// 优化1: 简化mapStateToProps和mapDispatchToProps
 const CountContainer = connect(
   state => ({count: state}),
-  // mapDispatchToProps的对象形式
-  // react-redux会帮我们做dispatch分发操作
-  {
-    add: createIncrementAction,
-    minus: createDecrementAction,
-    addAsync: createIncrementAsyncAction,
-  }
-)(CountUI);
-
-/*
-    // mapDispatchToProps一般写法
-    dispatch => ({
-      add: (number) => {
-        dispatch(createIncrementAction(number));
-      },
+  dispatch => (
+    {
+      add: number => dispatch(createIncrementAction(number)),
       minus: number => dispatch(createDecrementAction(number)),
       addAsync: (number, time) => dispatch(createIncrementAsyncAction(number, time)),
-    })
- */
+    }
+  )
+)(CountUI);
 
 export default CountContainer;
 
