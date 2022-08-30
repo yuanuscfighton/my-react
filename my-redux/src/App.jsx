@@ -1,11 +1,11 @@
 import React from "react";
-import Student from "./components/Student";
+import Component from "./components";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <Student/>
+        <Component/>
       </div>
     );
   }
