@@ -1,10 +1,9 @@
 // 使用RTK构建store
 import {configureStore, createSlice} from "@reduxjs/toolkit";
 
-// createSlice 创建reducer切片
-// options是一个配置对象
-const studentSlice = createSlice({
-  // 属性1: 用来自动生成action中的type的常量值
+// 第1步: createSlice 创建reducer切片
+const studentSlice = createSlice({ // options是一个配置对象
+                                   // 属性1: 用来自动生成action中的type的常量值
   name: 'stu',
 
   // 属性2: state的初始值
@@ -38,8 +37,8 @@ export const {setName, setAge} = studentSlice.actions;
 // const nameAction = setName("王五");
 // console.log(nameAction); // { "type": "stu/setName", "payload": "王五" }
 
-
-// 创建store对象，需要配置对象作为参数
+//////////////////////////////////////////////////////////////////////////////////////////////
+// 第2步: 创建store对象，需要配置对象作为参数
 const store = configureStore({
   reducer: {
     xuesheng: studentSlice.reducer
