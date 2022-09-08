@@ -4,7 +4,7 @@ import {setName, setAge} from '../../redux/store';
 
 export default function Student() {
 
-  // 第3步: useSelector() 用来加载state中的数据
+  // 第3步: useSelector() 用来加载(读取)state中的数据
   const student = useSelector(state => state.xuesheng);
 
   // 第4步: 通过useDispatch() 获取派发器的对象
