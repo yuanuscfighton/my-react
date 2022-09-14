@@ -1,16 +1,16 @@
 {
-  "name": "webpack5_demo",
+  "name": "my-webpack5",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/main.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "yuan",
+  "author": "春夏秋冬在中南",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^5.73.0",
+    "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   }
 }
