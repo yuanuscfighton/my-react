@@ -34,7 +34,7 @@ export const createIncrementAsyncAction = (data, time) => {
   // }
   //
   // 修改点:
-  // 使用一个中间件，和store商量，允许给store传递函数类型的action，但store不用把这个action交给reducer，让reducer处理这个action，
+  // 使用一个中间件，和store商量，允许给store传递函数类型的action，但store不用把这个action交给reducer，(i.e. 先不让reducer处理这个action)
   // 只需要store执行下这个函数，等函数到了某个时机后，再给store传递一个合法的一般对象类型的action。
   // ⚠️ 所以，middleware作用，让store可以接收一个函数类型的action，但不要将函数交给reducer让它干活，只需要帮忙执行一下函数就行
   // 修改步骤:

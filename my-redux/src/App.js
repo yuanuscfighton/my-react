@@ -1,11 +1,11 @@
 import React from "react";
-import Component from './components/Count';
+import Count from "./components/Count";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <Component/>
+        <Count/>
       </div>
     );
   }

@@ -1,55 +1,51 @@
-import React, {useReducer, useState} from "react";
+import React from "react";
+import store from '../../redux/store';
+import {createDecrementAction, createIncrementAction, createIncrementAsyncAction} from "../../redux/count_action";
 
-/**
- * 改进版本
- */
-export default function Student() {
+export default class Count extends React.Component {
 
-  /**
-   * useReducer(reducer, initialArg, init) hook说明:
-   *
-   * @param reducer: 是一个整合函数。对于我们当前state的所有操作都应该在该函数中定义，该函数的返回值会成为state的新值
-   *                  reducer在执行的时候，会收到两个参数:
-   *                      (1)preState:上次的状态
-   *                      (2)action:
-   * @param initializerArg: state的初始值，作用和useState()中的值一样
-   * @return param1:state用来获取state的值，param2:state修改的派发器(i.e.通过派发器可以发送操作state的命令，具体的修改行为将会由另外一个函数执行).countDispatch是发指令的人，reducer是干活的人
-   */
-  const [count, countDispatch] = useReducer(
-    // 注: 为了避免reducer会重复创建，通常reducer会定义到组件的外部
-    // reducer是真正干活的
-    (preState, action) => {
-      // console.log("reducer执行了");
-      // return '哈哈😄';
-      // return preState + 1;
-      if (action.type === 'ADD') {
-        return preState + 1
-      } else if (action.type === 'SUB') {
-        return preState - 1
-      } else {
-        return preState
-      }
-    },
-    1);
-
-  // 加1操作
-  const addHandler = () => {
-    // dispatch是发指令的
-    countDispatch({type: 'ADD', payload: 1});
+  increment = () => {
+    const {value} = this.selectNumber;
+    store.dispatch(createIncrementAction(value * 1));
   }
 
-  const subHandler = () => {
-    countDispatch({type: 'SUB'})
+  decrement = () => {
+    const {value} = this.selectNumber;
+    store.dispatch(createDecrementAction(value * 1));
   }
 
-  return (
-    <div>
-      <p>{count}</p>
+  incrementIfOdd = () => {
+    const {value} = this.selectNumber;
+    if (store.getState() % 2 !== 0) {
+      store.dispatch(createIncrementAction(value * 1));
+    }
+  }
 
-      <button onClick = {addHandler}>增加</button>
-      &nbsp;
-      &nbsp;
-      <button onClick = {subHandler}>减少</button>
-    </div>
-  )
+  incrementAsync = () => {
+    const {value} = this.selectNumber;
+    store.dispatch(createIncrementAsyncAction(value * 1, 500));
+  }
+
+
+  render() {
+    return (
+      <div>
+        <h1>当前求和为: {store.getState()}</h1>
+        <select ref = {c => this.selectNumber = c}>
+          <option value = {1}>1</option>
+          <option value = {2}>2</option>
+          <option value = {3}>3</option>
+          <option value = {4}>4</option>
+        </select>&nbsp;
+
+        <button onClick = {this.increment}>加1</button>
+        &nbsp;
+        <button onClick = {this.decrement}>减1</button>
+        &nbsp;
+        <button onClick = {this.incrementIfOdd}>当和是奇数再加1</button>
+        &nbsp;
+        <button onClick = {this.incrementAsync}>异步加1</button>
+      </div>
+    )
+  }
 }
