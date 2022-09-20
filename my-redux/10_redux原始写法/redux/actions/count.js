@@ -1,4 +1,4 @@
-import {DECREMENT, INCREMENT} from "./constant";
+import {DECREMENT, INCREMENT} from "../constant";
 
 export function createIncrementAction(data) {
   return {type: INCREMENT, payload: data};

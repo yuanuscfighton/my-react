@@ -1,36 +1,37 @@
 import React from "react";
-import store from '../../redux/store';
-import {createDecrementAction, createIncrementAction, createIncrementAsyncAction} from "../../redux/count_action";
+import {connect} from "react-redux";
+import {createDecrementAction, createIncrementAction, createIncrementAsyncAction} from "../../redux/actions/count";
 
-export default class Count extends React.Component {
+class CountUI extends React.Component {
 
   increment = () => {
     const {value} = this.selectNumber;
-    store.dispatch(createIncrementAction(value * 1));
+    this.props.add(value * 1);
   }
 
   decrement = () => {
     const {value} = this.selectNumber;
-    store.dispatch(createDecrementAction(value * 1));
+    this.props.minus(value * 1);
   }
 
   incrementIfOdd = () => {
     const {value} = this.selectNumber;
-    if (store.getState() % 2 !== 0) {
-      store.dispatch(createIncrementAction(value * 1));
+    const count = this.props.countXxx;
+    if (count % 2 !== 0) {
+      this.props.add(value * 1);
     }
   }
 
   incrementAsync = () => {
     const {value} = this.selectNumber;
-    store.dispatch(createIncrementAsyncAction(value * 1, 500));
+    this.props.addAsync(value * 1, 500);
   }
-
 
   render() {
     return (
       <div>
-        <h1>当前求和为: {store.getState()}</h1>
+        <h2>Count组件</h2>
+        <h4>当前求和为: {this.props.countXxx}, Person总人数为:{this.props.totalPersonNum}</h4>
         <select ref = {c => this.selectNumber = c}>
           <option value = {1}>1</option>
           <option value = {2}>2</option>
@@ -49,3 +50,12 @@ export default class Count extends React.Component {
     )
   }
 }
+
+export default connect(
+  state => ({countXxx: state.he, totalPersonNum: state.peiqi.length}),
+  {
+    add: createIncrementAction,
+    minus: createDecrementAction,
+    addAsync: createIncrementAsyncAction,
+  }
+)(CountUI);

@@ -1,7 +1,12 @@
-import countReducer from './count_reducer';
-import {applyMiddleware, createStore} from "redux";
-import thunk from "redux-thunk";
+import {configureStore} from "@reduxjs/toolkit";
+import {personReducer} from './slices/person';
+import {schoolReducer} from "./slices/school";
 
-// export default createStore(countReducer);
+const store = configureStore({
+  reducer: {
+    ren: personReducer,
+    xuexiao: schoolReducer,
+  },
+});
 
-export default createStore(countReducer, applyMiddleware(thunk));
+export default store;
