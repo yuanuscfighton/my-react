@@ -10,6 +10,7 @@ export default class Count extends React.Component {
   increment = () => {
     // 获取选择的数值
     const {value} = this.selectNumber; // 这里的value是string类型
+    // 读取原来的值
     const {count} = this.state;
     this.setState({
       count: count + value * 1,

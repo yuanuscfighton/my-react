@@ -11,7 +11,7 @@ import countReducer from './count_reducer';
  *
  * 方法的入参: reducer为store卖命服务，所以在创建store的时候，需要指定好reducer
  *
- * store是指挥者，本身不干活。真正加工状态的是reducers
+ * store是指挥者，本身不干活，真正加工状态的是reducers
  * e.g. store相当于餐厅的老板，reducer是真正做饭的后厨. 老板在开饭店之前就已经找好了后厨团，reducer为store服务
  */
 export default createStore(countReducer);

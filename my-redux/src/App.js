@@ -1,13 +1,13 @@
 import React from "react";
-import UI from "./containers"
+import Count from "./components/Count";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <UI/>
+        <Count/>
       </div>
-    );
+    )
   }
 }
 

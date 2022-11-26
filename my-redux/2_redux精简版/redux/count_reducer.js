@@ -8,6 +8,7 @@
  *  （1）reducer相当于餐厅的后厨
  *  （2）reducer可以初始状态和加工状态
  */
+
 const initState = -666; // 初始化状态
 export default function countReducer(preState = initState, action) {
 
