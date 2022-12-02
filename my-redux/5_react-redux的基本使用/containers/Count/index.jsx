@@ -16,15 +16,15 @@ import {createDecrementAction, createIncrementAction, createIncrementAsyncAction
  * a函数的返回值作为状态传递给UI组件
  * （1）a函数返回的是一个对象，用于传递redux中保存的状态
  * （2）a函数返回的对象中的key就作为传递给UI组件props的key，value就作为传递给UI组件props的value -- 状态
- *
- *
+ * ////////////////////////////////////////////
  * 函数a的入参说明:
  * a函数是react-redux调用的，而函数a用于传递状态，所以react-redux在调用a函数的时候，已经把state传进来了。
  * 因此不需要我们自己store.getState()获取redux中的状态
  */
 function a(state) {  // a ==> mapStateToProps
   // 目的是传递状态
-  // return {n: 900}
+  // 🌰 return {n: 900}
+  // ❌ redux中保存的状态不能通过 store.getState() 获取，因为在App组件中，已经传入store对象了
   return {count: state}; // 从redux中拿状态
 }
 
@@ -40,7 +40,6 @@ function b(dispatch) {  // b ==> mapDispatchToProps
       // console.log("====>>> number:", number);
 
       // 通知redux执行加法
-      // dispatch({type: INCREMENT, data: number})
       dispatch(createIncrementAction(number));
     },
     minus: number => dispatch(createDecrementAction(number)),

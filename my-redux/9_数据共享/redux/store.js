@@ -15,7 +15,7 @@ import thunk from 'redux-thunk';
  * 3.combineReducers传入的对象就是redux帮我们保存的总状态对象
  */
 const allReducers = combineReducers({
-  he: countReducer, // key-value形式，value就是谁以后能初始化/加工 sum
+  he: countReducer, // key-value形式，value就是谁以后能初始化/加工
   peiqi: personReducer,
 });
 // redux保存的总状态对象的初始化的样子是:
